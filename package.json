@@ -1,0 +1,35 @@
+{
+	"name": "social-media-app",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"author": "Raunak Kedia <raunakkedia1@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"apollo-server-express": "^2.25.2",
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"graphql": "^15.5.1",
+		"isemail": "^3.2.0",
+		"jsonwebtoken": "^8.5.1",
+		"jwt-decode": "^3.1.2",
+		"mongoose": "^5.12.14"
+	},
+	"scripts": {
+		"start": "node index.js",
+		"server": "nodemon index.js",
+		"client": "cd client && yarn start",
+		"dev": "concurrently \"yarn start\" \"yarn client\" "
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.14.5",
+		"@babel/core": "^7.14.6",
+		"@babel/node": "^7.14.7",
+		"@babel/preset-env": "^7.14.7",
+		"@babel/runtime": "^7.14.6",
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"concurrently": "^6.2.0",
+		"nodemon": "^2.0.7"
+	}
+}
