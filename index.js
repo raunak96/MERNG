@@ -7,10 +7,13 @@ import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { createServer } from "http";
 import { ApolloServer, PubSub } from "apollo-server-express";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const startServer = async () => {
 	dotenv.config();
 	const app = express();
+	const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 	const pubsub = new PubSub();
 
@@ -45,20 +48,24 @@ const startServer = async () => {
 		},
 	});
 
+	app.use(express.static(path.join(__dirname, "client/build")));
+
 	const server = createServer(app);
 	apolloServer.applyMiddleware({ app });
 	apolloServer.installSubscriptionHandlers(server);
 
-	server.listen(5000, () => {
+	const PORT = process.env.PORT || 5000;
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+	});
+
+	server.listen(PORT, () => {
 		console.log(
-			`🚀 Server ready at http://localhost:${5000}${
-				apolloServer.graphqlPath
-			}`
+			`🚀 Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`
 		);
 		console.log(
-			`🚀 Subscriptions ready at ws://localhost:${5000}${
-				apolloServer.subscriptionsPath
-			}`
+			`🚀 Subscriptions ready at ws://localhost:${PORT}${apolloServer.subscriptionsPath}`
 		);
 	});
 };
