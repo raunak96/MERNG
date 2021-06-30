@@ -85,7 +85,7 @@ const Post = () => {
 			</div>
 			{user && (
 				<div className="fixed bottom-5 right-0 left-0 w-3/5 mx-auto grid grid-cols-12 z-10 bg-white">
-					<div className="col-start-3 col-span-12">
+					<div className="md:col-start-3 md:col-span-12 col-span-12">
 						<CommentForm postId={postId} />
 					</div>
 				</div>

@@ -1,10 +1,11 @@
 import { useQuery } from "@apollo/client";
 import PostCard from "../components/PostCard";
 import PostForm from "../components/PostForm";
-import { GET_POSTS } from "../graphQl/Queries";
+import { GET_CURRENT_USER, GET_POSTS } from "../graphQl/Queries";
 
 const Home = () => {
 	const { loading, data } = useQuery(GET_POSTS);
+	const { data: userData } = useQuery(GET_CURRENT_USER);
 	const posts = data?.getPosts ?? [];
 
 	return (
@@ -15,7 +16,7 @@ const Home = () => {
 					<h1>Loading...</h1>
 				) : (
 					<>
-						<PostForm />
+						{userData?.currentUser && <PostForm />}
 						{posts.map(post => (
 							<PostCard key={post.id} post={post} />
 						))}
